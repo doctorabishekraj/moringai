@@ -750,18 +750,158 @@
   .toast-icon { font-size:1.2rem; }
   .toast-text { font-size:0.85rem; line-height:1.4; }
 
-  /* RESPONSIVE TWEAKS */
+  /* ===================== HAMBURGER MENU ===================== */
+  .hamburger {
+    display:none; flex-direction:column; gap:5px;
+    background:none; border:none; cursor:pointer; padding:4px; z-index:1100;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px;
+    background:var(--moss); border-radius:2px;
+    transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
+    transform-origin:center;
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .mobile-nav {
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:var(--ivory); z-index:1050;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    gap:0; transform:translateX(100%);
+    transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .mobile-nav.open { transform:translateX(0); }
+  .mobile-nav a {
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.4rem; font-weight:300; color:var(--moss);
+    text-decoration:none; padding:16px 32px;
+    letter-spacing:0.04em; cursor:pointer;
+    display:block; width:100%; text-align:center;
+    border-bottom:1px solid rgba(74,124,47,0.08);
+    transition:color 0.2s, background 0.2s;
+  }
+  .mobile-nav a:hover { color:var(--leaf); background:rgba(74,124,47,0.04); }
+  .mobile-nav .mobile-cart-btn {
+    margin-top:24px; background:var(--moss); color:var(--cream);
+    border:none; padding:14px 40px;
+    font-family:'Outfit',sans-serif; font-size:0.9rem; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase; cursor:pointer;
+  }
+  .mobile-nav-footer {
+    position:absolute; bottom:32px;
+    font-size:0.72rem; color:#9aaa8a; letter-spacing:0.1em;
+  }
+
+  /* ===================== TABLET (≤900px) ===================== */
   @media (max-width:900px) {
-    nav { padding:18px 24px; }
+    body { cursor:auto; }
+    .cursor, .cursor-trail { display:none; }
+
+    nav { padding:16px 20px; }
+    nav.scrolled { padding:12px 20px; }
     .nav-links { display:none; }
-    .hero-content { padding:0 24px; }
-    .features, .products-grid { padding-left:24px; padding-right:24px; }
-    .features-grid { grid-template-columns:1fr 1fr; }
-    .products-grid { grid-template-columns:1fr 1fr; }
-    .about-split, .contact-layout { grid-template-columns:1fr; }
-    .blog-grid { grid-template-columns:1fr; }
-    .footer-grid { grid-template-columns:1fr 1fr; }
+    .hamburger { display:flex; }
+    .nav-actions .btn-cart { padding:9px 16px; font-size:0.78rem; }
+
+    /* Hero */
+    .hero { min-height:100svh; align-items:flex-end; padding-bottom:60px; }
+    .hero-content { padding:0 20px; max-width:100%; }
+    .hero h1 { font-size:clamp(2.8rem,9vw,4.5rem); }
+    .blob-5d { display:none; }
+    .hero-ctas { flex-direction:column; gap:12px; }
+    .btn-primary, .btn-outline { width:100%; text-align:center; padding:14px 20px; }
+    .scroll-hint { left:20px; }
+
+    /* Features */
+    .features { padding:72px 20px; }
+    .features-grid { grid-template-columns:1fr 1fr; gap:2px; }
+
+    /* Products */
+    .products-hero { padding:120px 20px 60px; }
+    .filter-bar { padding:32px 20px 20px; gap:6px; }
+    .filter-btn { padding:7px 14px; font-size:0.72rem; }
+    .products-grid { grid-template-columns:1fr 1fr; gap:16px; padding:0 20px 60px; }
+    .product-img-wrap { height:220px; }
+
+    /* About */
+    .about-split { grid-template-columns:1fr; padding-top:70px; }
+    .about-visual { padding:60px 20px; min-height:360px; }
+    .about-stat-grid { grid-template-columns:1fr 1fr; }
+    .about-content { padding:60px 20px; }
+
+    /* Blog */
+    .blog-hero { padding:120px 20px 48px; }
+    .blog-grid { grid-template-columns:1fr; gap:20px; padding:32px 20px 60px; }
+    .blog-img { height:240px; }
+
+    /* Contact */
+    .contact-layout { grid-template-columns:1fr; }
+    .contact-info { padding:120px 24px 60px; }
+    .contact-form-wrap { padding:52px 24px 60px; }
     .form-row { grid-template-columns:1fr; }
+
+    /* Testimonials */
+    .testimonials { padding:72px 20px; }
+    .testimonials-grid { grid-template-columns:1fr; gap:16px; margin-top:36px; }
+
+    /* Newsletter */
+    .newsletter { padding:60px 20px; }
+    .newsletter-form { flex-direction:column; }
+    .newsletter-input { border-right:1px solid rgba(255,255,255,0.2); }
+    .newsletter-btn { padding:14px; }
+
+    /* Footer */
+    footer { padding:60px 20px 32px; }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:32px; margin-bottom:40px; }
+
+    /* Cart */
+    .cart-panel { width:100%; max-width:100%; }
+
+    /* Checkout modal */
+    .checkout-modal { max-height:100svh; border-radius:0; }
+    .checkout-modal-header { padding:24px 20px 20px; }
+    .checkout-modal-body { padding:20px 20px; }
+    .cform-row { grid-template-columns:1fr; }
+    .razorpay-badge { flex-wrap:wrap; font-size:0.68rem; }
+  }
+
+  /* ===================== MOBILE (≤480px) ===================== */
+  @media (max-width:480px) {
+    .logo { font-size:1.6rem; }
+    .logo-leaf { width:22px; height:22px; }
+
+    /* Hero */
+    .hero h1 { font-size:clamp(2.4rem,11vw,3.2rem); }
+    .hero-tag { font-size:0.65rem; padding:5px 12px; }
+    .hero-sub { font-size:0.9rem; }
+
+    /* Features */
+    .features-grid { grid-template-columns:1fr; }
+    .feature-card { padding:32px 24px; }
+
+    /* Products */
+    .products-grid { grid-template-columns:1fr; }
+    .product-img-wrap { height:260px; }
+    .product-name { font-size:1.3rem; }
+
+    /* About stats */
+    .about-stat-num { font-size:2.8rem; }
+
+    /* Blog */
+    .blog-small { flex-direction:column; }
+    .blog-small-img { width:100%; height:120px; }
+
+    /* Footer */
+    .footer-grid { grid-template-columns:1fr; }
+    .footer-bottom { flex-direction:column; text-align:center; }
+
+    /* Checkout */
+    .checkout-step { font-size:0.62rem; padding:10px 4px; letter-spacing:0.04em; }
+    .checkout-actions { flex-direction:column; }
+    .btn-back-step { width:100%; text-align:center; }
   }
 
   /* SCROLL ANIMATIONS */
@@ -1239,6 +1379,17 @@
   </div>
 </div>
 
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" id="mobileNav">
+  <a onclick="mobileNavTo('home')">Home</a>
+  <a onclick="mobileNavTo('products')">Shop</a>
+  <a onclick="mobileNavTo('about')">About</a>
+  <a onclick="mobileNavTo('blog')">Journal</a>
+  <a onclick="mobileNavTo('contact')">Contact</a>
+  <button class="mobile-cart-btn" onclick="closeMobileNav(); openCart()">🛒 View Cart</button>
+  <div class="mobile-nav-footer">moringai.in</div>
+</div>
+
 <!-- NAVIGATION -->
 <nav id="mainNav">
   <div class="logo" onclick="showPage('home')">
@@ -1252,10 +1403,13 @@
     <li><a onclick="showPage('blog')" id="nav-blog">Journal</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
-  <div class="nav-actions">
+  <div class="nav-actions" style="display:flex;align-items:center;gap:12px">
     <button class="btn-cart" onclick="openCart()">
       🛒 Cart
       <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
@@ -2070,6 +2224,26 @@ document.addEventListener('mousemove', (e) => {
     blob.style.transform = `translateY(-50%) translateX(${pct.x*-12}px) rotateY(${pct.x*8}deg) rotateX(${-pct.y*5}deg)`;
   }
 });
+
+// ============================================================
+// MOBILE NAV
+// ============================================================
+function toggleMobileNav() {
+  const nav = document.getElementById('mobileNav');
+  const btn = document.getElementById('hamburger');
+  const isOpen = nav.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function mobileNavTo(page) {
+  closeMobileNav();
+  showPage(page);
+}
 
 // ============================================================
 // RAZORPAY CHECKOUT
